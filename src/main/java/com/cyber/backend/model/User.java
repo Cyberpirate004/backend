@@ -1,15 +1,20 @@
 package com.cyber.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 import jdk.jfr.SettingControl;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Entity
 @Table(name = "Users")
-public class User {
+public class User implements UserDetails {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -70,8 +75,36 @@ public class User {
         return username;
     }
 
+    //userDetailed Interface override
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+
+        Set<Authority> set=new HashSet<>();
+
+        this.userRoles.forEach(userRole -> {
+            set.add(new Authority(userRole.getRole().getRoleName()));
+        });
+
+        return set;
     }
 
     public String getPassword() {

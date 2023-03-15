@@ -1,6 +1,6 @@
 package com.cyber.backend.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 public class UserRole {

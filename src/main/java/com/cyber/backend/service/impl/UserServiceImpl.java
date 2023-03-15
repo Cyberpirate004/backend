@@ -1,5 +1,6 @@
 package com.cyber.backend.service.impl;
 
+import com.cyber.backend.helper.UserFoundException;
 import com.cyber.backend.model.User;
 import com.cyber.backend.model.UserRole;
 import com.cyber.backend.repo.RoleRepository;
@@ -27,7 +28,7 @@ public class UserServiceImpl implements UserService {
 
         if(local!=null){
             System.out.println("User is alreday there !!");
-            throw new Exception("User already present !!");
+            throw new UserFoundException();
         }else{
 
             //user create
@@ -57,18 +58,29 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(String Name , User user) {
+    public String updateUser(String Name , User user) {
 
-        User oldone=getUser(Name);
-        oldone.setUsername(user.getUsername());
-        oldone.setFirstName(user.getFirstName());
-        oldone.setLastName(user.getLastName());
-        oldone.setPassword(user.getPassword());
-        oldone.setEmail(user.getEmail());
-        oldone.setPhone(user.getPhone());
-        oldone.setProfile(user.getProfile());
+        User local = this.userRepository.findByUsername(user.getUsername());
 
-        this.userRepository.save(oldone);
+        if(local != null){
 
+            String msg="Username alreday exist";
+            return msg;
+
+        }else {
+            User oldone = getUser(Name);
+            oldone.setUsername(user.getUsername());
+            oldone.setFirstName(user.getFirstName());
+            oldone.setLastName(user.getLastName());
+            oldone.setPassword(user.getPassword());
+            oldone.setEmail(user.getEmail());
+            oldone.setPhone(user.getPhone());
+            oldone.setProfile(user.getProfile());
+
+            this.userRepository.save(oldone);
+
+            String msg ="User Successfully Updated";
+            return msg;
+        }
     }
 }
