@@ -60,6 +60,7 @@ public class QuestionController {
 
     }
 
+
     @GetMapping("/quiz/all/{quizId}")
     public ResponseEntity<?> getQuestionByQuizAdmin(@PathVariable("quizId") Long quizId){
 

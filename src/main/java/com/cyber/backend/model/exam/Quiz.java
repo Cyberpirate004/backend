@@ -15,6 +15,7 @@ public class Quiz {
 
     private String title;
 
+    @Column(length = 999999999)
     private String description;
 
     @Column(length = 999999999)

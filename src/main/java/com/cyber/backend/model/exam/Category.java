@@ -16,6 +16,7 @@ public class Category {
 
     private String title;
 
+    @Column(length = 999999999)
     private String description;
 
     //Established relationship

@@ -1,5 +1,6 @@
 package com.cyber.backend.service.impl;
 
+import com.cyber.backend.model.exam.Category;
 import com.cyber.backend.model.exam.Quiz;
 import com.cyber.backend.repo.QuizRepository;
 import com.cyber.backend.service.QuizService;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -39,5 +41,10 @@ public class QuizServiceImpl implements QuizService {
     public void deleteQuiz(Long quizId) {
 
         this.quizRepository.deleteById(quizId);
+    }
+
+    @Override
+    public List<Quiz> getListOfQuizzesofcategory(Category c) {
+        return this.quizRepository.findBycategory(c);
     }
 }

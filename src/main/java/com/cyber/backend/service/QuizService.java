@@ -1,7 +1,10 @@
 package com.cyber.backend.service;
 
+import com.cyber.backend.model.exam.Category;
 import com.cyber.backend.model.exam.Quiz;
+import org.springframework.http.ResponseEntity;
 
+import java.util.List;
 import java.util.Set;
 
 public interface QuizService {
@@ -15,4 +18,6 @@ public interface QuizService {
     public Quiz getQuizById(Long quizId);
 
     public void deleteQuiz(Long quizId);
+
+    public List<Quiz> getListOfQuizzesofcategory(Category c);
 }
