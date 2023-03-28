@@ -47,11 +47,25 @@ public class QuizController {
         this.quizService.deleteQuiz(quizid);
     }
 
+    //loding quiz of particular quiz
     @GetMapping("/category/{cid}")
     public List<Quiz> LoadQuizOfCategory(@PathVariable("cid") Long cid)
     {
         Category category=new Category();
         category.setCid(cid);
         return this.quizService.getListOfQuizzesofcategory(category);
+    }
+
+    //load only activeQuiz
+    @GetMapping("/activeQuiz")
+    public List<Quiz> LoadActiveQuiz(){
+        return this.quizService.getActiveQuizzes();
+    }
+
+    @GetMapping("/activeQuiz/{cid}")
+    public List<Quiz> LoadActiveQuizOfCategory(@PathVariable("cid") Long cid){
+        Category category=new Category();
+        category.setCid(cid);
+        return this.quizService.getActiveQuizzesOFCategroy(category);
     }
 }
